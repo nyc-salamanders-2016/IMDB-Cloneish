@@ -6,6 +6,7 @@ class MovieList extends React.Component {
 			movies: []
 		}
 		this.fetchMovies = this.fetchMovies.bind(this)
+		this.showMovies = this.showMovies.bind(this)
 	}
 
 	componentDidMount() {
@@ -17,17 +18,21 @@ class MovieList extends React.Component {
 			url: 'http://www.omdbapi.com/?s=Edwin',
 			method: 'get'
 		}).done((response) => {
-			// console.log(response)
-			// debugger
 		  	this.setState({movies: response.Search})
 		  })
+	}
+
+	showMovies(movies) {
+		this.setState({
+			movies: [movies]
+		})
 	}
 
 	render(){
 		return(
 			<ul>
 				{
-					this.state.movies.map((movie, idx) => {
+					this.props.movies.map((movie, idx) => {
 						return (<Movie key={idx} data={movie} />)
 					})
 				}
